@@ -25,8 +25,7 @@ if (!Array.prototype.findIndex) {
 
 angular.module('myApp', [])
 .controller("trackerCtrl",["$scope", "$timeout",function($scope, $timeout) {
-	this.tasks = [];	
-	testT = this.tasks;
+	this.tasks = [];
 	var that = this;
 
 	var Task = function(name, rate) {
