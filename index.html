@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/material-fullpalette.min.css">
+  <link rel="stylesheet" href="bower_components/bootstrap-material-design/dist/css/ripples.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+
+  <!--[if lt IE 7]>
+      <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div class="container">
+    <div class="col-md-12" ng-controller="trackerCtrl as tracker">
+      <div class="well ">
+        <form novalidate name="add_form">
+          <div class="form-group">
+            <label for="new_task_name">Создать задачу</label>
+            <div class="row">
+              <div class="col-md-6">
+                <input type="text" class="form-control" placeholder="Имя" ng-model="name" id="new_task_name">
+              </div>
+              <div class="col-md-4">
+                <input type="number" class="form-control" placeholder="Ставка" ng-model="rate">
+              </div>
+              <div class="col-md-2">
+                <button class="btn btn-success btn-block" ng-click="tracker.addTask(name,rate)">Добавить</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover result">
+          <thead>
+            <tr>
+              <th>Задача:</th>
+              <th>Ставка:</th>
+              <th>Начало:</th>
+              <th>Цена:</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="task in tracker.tasks">
+              <td><input class="form-control" type="text" ng-model="task.name"></td>
+              <td><input class="form-control" type="text" ng-model="task.rate"><span class="input-group-addon">₽</span></td>
+              <td>{{ task.startTime | date }}</td>
+              <td>{{ task.price | currency }} за {{ task.time | secondsToDateTime | date:'HH:mm:ss' }}</td>
+              <td>
+                <button class="btn" ng-click="startStop(task)" ng-class="{ 'mdi-av-play-arrow': !task.running, 'mdi-av-pause': task.running}"></button>
+                <button class="btn mdi-content-clear" ng-click="deleteTask(task)"></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/ripples.min.js"></script>
+  <script src="bower_components/bootstrap-material-design/dist/js/material.min.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-i18n/angular-locale_ru-ru.js"></script>
+  <script src="app.js"></script>
+
+  <script src="http://localhost:35729/livereload.js"></script>
+</body>
+</html>
